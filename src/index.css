@@ -1,0 +1,238 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --primary-color: #4A90E2;
+    --secondary-color: #7ED321;
+    --accent-color: #F5A623;
+    --danger-color: #D0021B;
+    --success-color: #50C878;
+    --bg-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  }
+
+  body {
+    margin: 0;
+    font-family: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+      'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+      sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background: var(--bg-gradient);
+    min-height: 100vh;
+  }
+
+  code {
+    font-family: 'Fira Code', source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+      monospace;
+  }
+}
+
+@layer components {
+  /* アニメーション定義 */
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes highlight {
+    0% { background-color: var(--accent-color); }
+    100% { background-color: transparent; }
+  }
+
+  @keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+  }
+
+  @keyframes pulse-glow {
+    0%, 100% {
+      box-shadow: 0 0 20px rgba(239, 68, 68, 0.4), 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+    }
+    50% {
+      box-shadow: 0 0 40px rgba(239, 68, 68, 0.8), 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+    }
+  }
+
+  /* ボタンの改善 */
+  .btn {
+    @apply px-6 py-3 rounded-full font-medium transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 shadow-lg;
+    background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+    color: white;
+    border: none;
+    cursor: pointer;
+    transform: translateY(0);
+  }
+  
+  .btn:hover {
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+  }
+
+  .btn:active {
+    transform: translateY(0) scale(0.98);
+  }
+  
+  .btn-primary {
+    background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+  }
+  
+  .btn-secondary {
+    background: linear-gradient(45deg, #6c757d, #adb5bd);
+    color: white;
+  }
+  
+  .input-field {
+    @apply block w-full rounded-lg border-2 border-gray-200 shadow-sm focus:border-blue-500 focus:ring-blue-500 transition-all duration-200;
+    padding: 12px 16px;
+  }
+
+  .input-field:focus {
+    transform: scale(1.02);
+    box-shadow: 0 4px 15px rgba(74, 144, 226, 0.3);
+  }
+  
+  /* パネルの改善 */
+  .panel {
+    @apply bg-white rounded-2xl shadow-2xl p-8 border border-gray-100;
+    animation: fadeInUp 0.6s ease-out;
+    backdrop-filter: blur(10px);
+    background: rgba(255, 255, 255, 0.95);
+  }
+
+  .panel:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+  }
+  
+  .section {
+    @apply mb-8 last:mb-0;
+    padding: 20px;
+    border-radius: 15px;
+    background: linear-gradient(145deg, #f8f9fa, #e9ecef);
+    margin: 15px 0;
+    transition: all 0.3s ease;
+  }
+
+  .section:hover {
+    background: linear-gradient(145deg, #e9ecef, #f8f9fa);
+    transform: translateX(5px);
+  }
+  
+  .form-group {
+    @apply mb-6;
+  }
+
+  /* プログレスバー風統計表示 */
+  .progress-bar {
+    background: #f0f0f0;
+    border-radius: 15px;
+    overflow: hidden;
+    height: 30px;
+    margin: 8px 0;
+    position: relative;
+  }
+
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--success-color), var(--primary-color));
+    transition: width 0.8s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: bold;
+    border-radius: 15px;
+  }
+
+  /* 値更新ハイライト */
+  .value-updated {
+    animation: highlight 0.5s ease;
+  }
+
+  /* 重要度星の改善 */
+  .importance-stars {
+    color: var(--accent-color);
+    text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    animation: pulse 2s infinite;
+  }
+
+  /* 状態インジケーター */
+  .state-indicator {
+    @apply inline-flex items-center px-4 py-2 rounded-full text-sm font-medium;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    animation: fadeInUp 0.4s ease-out;
+  }
+
+  /* 分析ボタンの特別なスタイル */
+  .analyze-button {
+    animation: pulse-glow 2s infinite;
+  }
+  
+  .analyze-button:hover {
+    animation: none;
+  }
+
+  /* モバイル最適化 */
+  @media (max-width: 640px) {
+    .panel {
+      @apply p-3 rounded-xl;
+      margin: 8px;
+    }
+    
+    .section {
+      padding: 12px;
+      margin: 8px 0;
+    }
+    
+    .btn {
+      @apply w-full my-2 py-3 text-sm;
+    }
+
+    .input-field {
+      padding: 12px;
+      font-size: 16px; /* iOS Safari zoom prevention */
+    }
+
+    /* タッチ用の最小タップエリア確保 */
+    button, input, select, textarea {
+      min-height: 44px;
+    }
+
+    /* モバイル分析ボタン特別スタイル */
+    .analyze-button {
+      animation: pulse-glow 3s infinite;
+      font-size: 18px !important;
+      min-height: 60px;
+    }
+  }
+
+  /* タブレット対応 */
+  @media (min-width: 641px) and (max-width: 1024px) {
+    .panel {
+      @apply p-6 rounded-2xl;
+      margin: 12px;
+    }
+    
+    .section {
+      padding: 18px;
+      margin: 12px 0;
+    }
+    
+    .btn {
+      @apply w-full my-3 py-4;
+    }
+
+    .input-field {
+      padding: 14px;
+      font-size: 16px;
+    }
+  }
+}
